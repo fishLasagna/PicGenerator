@@ -10,8 +10,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "amethyste-api": "^1.1.5",
     "react": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-linear-gradient": "^2.6.2",
     "react-native-vector-icons": "^9.2.0"
   },
   "devDependencies": {

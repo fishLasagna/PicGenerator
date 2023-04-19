@@ -1,37 +1,51 @@
-import React, { Component} from "react";
+import React, { Component, useEffect, useState} from "react";
 import { StyleSheet, View, TextInput, Text, Image, Button, BackHandler} from "react-native";
 import CupertinoButtonPurple from "./components/CupertinoButtonPurple";
 import CupertinoButtonPurple1 from "./components/CupertinoButtonPurple1";
 import CupertinoButtonInfo1 from "./components/CupertinoButtonInfo1";
 import CupertinoHeaderWithLargeTitle from "./components/CupertinoHeaderWithLargeTitle";
+import LinearGradient from 'react-native-linear-gradient';
 
 function App(): JSX.Element {
+  const [posts, setPosts] = useState<any>();
+
+  useEffect(() => {
+    const fetchData = async function () {
+      const headers = "a04af71fdc0bcfe01e5d9d33484931689a2385c2934ed15819981850cc0820388e756d77959e5a46981d3d05403cd85b3d6f8efa5b6ef1269d17959782417ae1";
+      const data = await fetch('https://v1.api.amethyste.moe/generate');
+      const json = await data.json();
+      setPosts(json);
+      console.log(json)
+    };
+    fetchData();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.rectColumn}>
-        <View style={styles.rect}></View>
-        <CupertinoButtonPurple
-          style={styles.cupertinoButtonPurple}
-        ></CupertinoButtonPurple>
-        <CupertinoButtonPurple1
-          style={styles.cupertinoButtonPurple1}
-        ></CupertinoButtonPurple1>
-        <View style={styles.placeholderRow}>
-          <TextInput
-            placeholder="enter email"
-            keyboardAppearance="default"
-            style={styles.placeholder}
-          ></TextInput>
-          <CupertinoButtonInfo1
-            style={styles.cupertinoButtonInfo1}
-            
-          ></CupertinoButtonInfo1>
-        </View>
-        <CupertinoHeaderWithLargeTitle
-          style={styles.cupertinoHeaderWithLargeTitle}
-        ></CupertinoHeaderWithLargeTitle>
-        <Text style={styles.sendToEmail}>Send to email:</Text>
-      </View>
+   < View style={styles.container}>
+   <View style={styles.rectColumn}>
+     <View style={styles.rect}></View>
+
+    
+     <CupertinoButtonPurple
+       style={styles.cupertinoButtonPurple}
+     ></CupertinoButtonPurple>
+  
+
+     <CupertinoButtonPurple1
+       style={styles.cupertinoButtonPurple1}
+     ></CupertinoButtonPurple1>
+
+
+     <View style={styles.placeholderRow}>
+       <TextInput
+         placeholder="enter email"
+         keyboardAppearance="default"
+         style={styles.placeholder}
+       ></TextInput>
+       <CupertinoButtonInfo1
+         style={styles.cupertinoButtonInfo1}
+         
+       ></CupertinoButtonInfo1>
       <View style={styles.rectColumnFiller}>
         <Image
           source={require("./images/black.jpg")}
@@ -39,7 +53,21 @@ function App(): JSX.Element {
           style={styles.image}
         ></Image>
       </View>
-    </View>
+      </View>
+
+
+     <CupertinoHeaderWithLargeTitle
+       style={styles.cupertinoHeaderWithLargeTitle}
+     ></CupertinoHeaderWithLargeTitle>
+     <Text style={styles.sendToEmail}>Send to email:</Text>
+
+
+     
+   </View>
+
+
+
+ </View>
   );
 }
 
@@ -49,6 +77,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,1)",
     borderWidth: 1,
     borderColor: "#000000"
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
   },
   rect: {
     width: 100,
