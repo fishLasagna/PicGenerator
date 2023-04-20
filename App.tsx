@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState} from "react";
-import { StyleSheet, View, TextInput, Text, Image, Button, BackHandler} from "react-native";
+import { StyleSheet, View, TextInput, Text, Image, Button, BackHandler, Keyboard, Platform, KeyboardAvoidingView, TouchableWithoutFeedback} from "react-native";
 import CupertinoButtonPurple from "./components/CupertinoButtonPurple";
 import CupertinoButtonPurple1 from "./components/CupertinoButtonPurple1";
 import CupertinoButtonInfo1 from "./components/CupertinoButtonInfo1";
@@ -19,56 +19,59 @@ function App(): JSX.Element {
     };
     fetchData();
   }, []);
-
-  return (
-   < View style={styles.container}>
-   <View style={styles.rectColumn}>
-     <View style={styles.rect}></View>
-
     
-     <CupertinoButtonPurple
-       style={styles.cupertinoButtonPurple}
-     ></CupertinoButtonPurple>
-  
+  return (
 
-     <CupertinoButtonPurple1
-       style={styles.cupertinoButtonPurple1}
-     ></CupertinoButtonPurple1>
-
-
-     <View style={styles.placeholderRow}>
-       <TextInput
-         placeholder="enter email"
-         keyboardAppearance="default"
-         style={styles.placeholder}
-       ></TextInput>
-       <CupertinoButtonInfo1
-         style={styles.cupertinoButtonInfo1}
-         
-       ></CupertinoButtonInfo1>
-      <View style={styles.rectColumnFiller}>
-        <Image
-          source={require("./images/black.jpg")}
-          resizeMode="contain"
-          style={styles.image}
-        ></Image>
-      </View>
-      </View>
-
-
-     <CupertinoHeaderWithLargeTitle
-       style={styles.cupertinoHeaderWithLargeTitle}
-     ></CupertinoHeaderWithLargeTitle>
-     <Text style={styles.sendToEmail}>Send to email:</Text>
-
-
+    < View style={styles.container}>
+    <View style={styles.rectColumn}>
+      <View style={styles.rect}></View>
+ 
      
-   </View>
+      <CupertinoButtonPurple
+        style={styles.cupertinoButtonPurple}
+      ></CupertinoButtonPurple>
+   
+ 
+      <CupertinoButtonPurple1
+        style={styles.cupertinoButtonPurple1}
+      ></CupertinoButtonPurple1>
+ 
+ 
+      <View style={styles.placeholderRow}>
+        <TextInput
+          placeholder="enter email"
+          placeholderTextColor={"white"}
+          keyboardAppearance="default"
+          style={styles.placeholder}
+        ></TextInput>
+        <CupertinoButtonInfo1
+          style={styles.cupertinoButtonInfo1}
+          
+        ></CupertinoButtonInfo1>
+       <View style={styles.rectColumnFiller}>
+         <Image
+           source={require("./images/black.jpg")}
+           resizeMode="contain"
+           style={styles.image}
+         ></Image>
+       </View>
+       </View>
+ 
+ 
+      <CupertinoHeaderWithLargeTitle
+        style={styles.cupertinoHeaderWithLargeTitle}
+      ></CupertinoHeaderWithLargeTitle>
+      <Text style={styles.sendToEmail}>Send to email:</Text>
+ 
+ 
+      
+    </View>
+ 
+ 
+ 
+  </View>
+  )
 
-
-
- </View>
-  );
 }
 
 const styles = StyleSheet.create({
@@ -104,8 +107,7 @@ const styles = StyleSheet.create({
     marginLeft: 18
   },
   placeholder: {
-    fontFamily: "roboto-regular",
-    color: "rgba(255,255,255,1)",
+    color: "white",
     height: 40,
     width: 214,
     backgroundColor: "rgba(14,14,14,1)",
@@ -150,7 +152,10 @@ const styles = StyleSheet.create({
   rectColumnFiller: {
     flex: 1,
     justifyContent: "center"
-  }
+  },
+inner: {
+  //flex: 1,
+}
 });
 
 export default App;
