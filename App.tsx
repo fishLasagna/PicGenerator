@@ -22,11 +22,19 @@ function App(): JSX.Element {
     
   return (
 
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+
+       
+
     < View style={styles.container}>
     <View style={styles.rectColumn}>
       <View style={styles.rect}></View>
  
-     
+
+
       <CupertinoButtonPurple
         style={styles.cupertinoButtonPurple}
       ></CupertinoButtonPurple>
@@ -37,6 +45,7 @@ function App(): JSX.Element {
       ></CupertinoButtonPurple1>
  
  
+
       <View style={styles.placeholderRow}>
         <TextInput
           placeholder="enter email"
@@ -70,6 +79,8 @@ function App(): JSX.Element {
  
  
   </View>
+  </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
   )
 
 }
@@ -82,7 +93,7 @@ const styles = StyleSheet.create({
     borderColor: "#000000"
   },
   linearGradient: {
-    flex: 1,
+
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5
@@ -148,6 +159,15 @@ const styles = StyleSheet.create({
     height: 218,
     marginLeft: 45,
     marginTop: 300
+  },
+ 
+  buttonText: {
+    fontSize: 18,
+    fontFamily: 'Gill Sans',
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+    backgroundColor: 'transparent',
   },
   rectColumnFiller: {
     flex: 1,
