@@ -9,17 +9,23 @@ import LinearGradient from 'react-native-linear-gradient';
 function App(): JSX.Element {
   const [posts, setPosts] = useState<any>();
 
-  useEffect(() => {
-    const fetchData = async function () {
-      const headers = "a04af71fdc0bcfe01e5d9d33484931689a2385c2934ed15819981850cc0820388e756d77959e5a46981d3d05403cd85b3d6f8efa5b6ef1269d17959782417ae1";
-      const data = await fetch('https://v1.api.amethyste.moe/generate');
-      const json = await data.json();
-      setPosts(json);
-      console.log(json)
-    };
-    fetchData();
-  }, []);
-    
+  const fetchData = async function () {
+   fetch('https://v1.api.amethyste.moe/generate/wasted', {
+  method: 'POST',
+  headers: {
+    Accept: 'application/json',
+    'content-type': 'application/json',
+    'Authorization': "a04af71fdc0bcfe01e5d9d33484931689a2385c2934ed15819981850cc0820388e756d77959e5a46981d3d05403cd85b3d6f8efa5b6ef1269d17959782417ae1"
+  },
+  credentials:"include",
+  body: JSON.stringify({
+    URL: 'https://2022663874-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-Lq-hsTV9LcOr3EcyPiW%2F-LqK75WPPTNGQXi2yj18%2F-LqKAAvqJ9k-bh32JN_P%2F8d247948-cec9-4707-9548-4f92ce577de2-response.png?alt=media&token=23b4e40c-f9e0-4d0a-a4c9-4de96b98d963'
+  }),
+  
+}).then((response) => response.arrayBuffer)
+
+  }
+
   return (
 
     <KeyboardAvoidingView
@@ -42,7 +48,11 @@ function App(): JSX.Element {
  
       <CupertinoButtonPurple1
         style={styles.cupertinoButtonPurple1}
-      ></CupertinoButtonPurple1>
+      >
+        onPress={async () => { (await fetchData)()
+  }}
+ 
+      </CupertinoButtonPurple1>
  
  
 
