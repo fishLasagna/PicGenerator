@@ -1,28 +1,32 @@
 import React, { Component, useEffect, useState} from "react";
-import { StyleSheet, View, TextInput, Text, Image, Button, BackHandler, Keyboard, Platform, KeyboardAvoidingView, TouchableWithoutFeedback} from "react-native";
+import { StyleSheet, View, TextInput, Text, Image, Button, BackHandler, Keyboard, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, TouchableOpacity} from "react-native";
 import CupertinoButtonPurple from "./components/CupertinoButtonPurple";
 import CupertinoButtonPurple1 from "./components/CupertinoButtonPurple1";
 import CupertinoButtonInfo1 from "./components/CupertinoButtonInfo1";
 import CupertinoHeaderWithLargeTitle from "./components/CupertinoHeaderWithLargeTitle";
 import LinearGradient from 'react-native-linear-gradient';
+import RNFetchBlob from "rn-fetch-blob";
+
 
 function App(): JSX.Element {
   const [posts, setPosts] = useState<any>();
+  const [image, setImage] = useState<string>();
 
   const fetchData = async function () {
-   fetch('https://v1.api.amethyste.moe/generate/wasted', {
-  method: 'POST',
-  headers: {
-    Accept: 'application/json',
+    RNFetchBlob.fetch("POST",'https://v1.api.amethyste.moe/generate/wasted', 
+   {
+    "Accept": 'application/json',
     'content-type': 'application/json',
-    'Authorization': "a04af71fdc0bcfe01e5d9d33484931689a2385c2934ed15819981850cc0820388e756d77959e5a46981d3d05403cd85b3d6f8efa5b6ef1269d17959782417ae1"
+    'Authorization': "Bearer a04af71fdc0bcfe01e5d9d33484931689a2385c2934ed15819981850cc0820388e756d77959e5a46981d3d05403cd85b3d6f8efa5b6ef1269d17959782417ae1"
   },
-  credentials:"include",
-  body: JSON.stringify({
-    URL: 'https://2022663874-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-Lq-hsTV9LcOr3EcyPiW%2F-LqK75WPPTNGQXi2yj18%2F-LqKAAvqJ9k-bh32JN_P%2F8d247948-cec9-4707-9548-4f92ce577de2-response.png?alt=media&token=23b4e40c-f9e0-4d0a-a4c9-4de96b98d963'
-  }),
-  
-}).then((response) => response.arrayBuffer)
+  JSON.stringify({
+    url: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?cs=srgb&dl=pexels-pixabay-45201.jpg&fm=jpg'
+  })).then((response) => {
+  let base64Str = response.data;
+  var imageBase64 = 'data:'+'png'+';base64,'+base64Str;
+  setImage(imageBase64)
+  // Return base64 image
+})
 
   }
 
@@ -39,21 +43,18 @@ function App(): JSX.Element {
     <View style={styles.rectColumn}>
       <View style={styles.rect}></View>
  
-
+      
 
       <CupertinoButtonPurple
         style={styles.cupertinoButtonPurple}
       ></CupertinoButtonPurple>
-   
  
-      <CupertinoButtonPurple1
-        style={styles.cupertinoButtonPurple1}
-      >
-        onPress={async () => { (await fetchData)()
-  }}
- 
-      </CupertinoButtonPurple1>
- 
+
+      <Button
+  //style={styles.cupertinoButtonPurple1}
+  onPress={() => fetchData()}
+  title="aa"
+      />
  
 
       <View style={styles.placeholderRow}>
@@ -68,14 +69,14 @@ function App(): JSX.Element {
           
         ></CupertinoButtonInfo1>
        <View style={styles.rectColumnFiller}>
-         <Image
-           source={require("./images/black.jpg")}
+
+       </View>
+       </View>
+       <Image
+           source={{uri: image ?? ""}}
            resizeMode="contain"
            style={styles.image}
          ></Image>
-       </View>
-       </View>
- 
  
       <CupertinoHeaderWithLargeTitle
         style={styles.cupertinoHeaderWithLargeTitle}
@@ -112,8 +113,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     backgroundColor: "#E6E6E6",
-    marginTop: 708,
-    marginLeft: 442
+    //marginTop: 708,
+    //marginLeft: 442
   },
   cupertinoButtonPurple: {
     height: 44,
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
   cupertinoButtonPurple1: {
     height: 44,
     width: 110,
-    marginTop: -538,
+    //marginTop: -538,
     marginLeft: 18
   },
   placeholder: {
@@ -143,20 +144,20 @@ const styles = StyleSheet.create({
   placeholderRow: {
     height: 44,
     flexDirection: "row",
-    marginTop: 359,
+   // marginTop: 359,
     marginLeft: 15,
     marginRight: 209
   },
   cupertinoHeaderWithLargeTitle: {
     height: 114,
     width: 400,
-    marginTop: -593
+   // marginTop: -593
   },
   sendToEmail: {
     fontFamily: "roboto-700",
     color: "rgba(144,19,254,1)",
     fontSize: 17,
-    marginTop: 404,
+   // marginTop: 404,
     marginLeft: 13
   },
   rectColumn: {
@@ -168,7 +169,8 @@ const styles = StyleSheet.create({
     width: 237,
     height: 218,
     marginLeft: 45,
-    marginTop: 300
+   // marginTop: 300,
+    //backgroundColor: "red"
   },
  
   buttonText: {
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   rectColumnFiller: {
-    flex: 1,
+    //flex: 1,
     justifyContent: "center"
   },
 inner: {
